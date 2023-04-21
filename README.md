@@ -16,8 +16,10 @@ Test project for learning FastAPI
 
 `pip install -r requirements.txt`
 
-* Run the live server:
-    * `uvicorn main:my_api --reload`
+* Run the live server and PostgreSQL:
+    * Run `make start` to start the PostgreSQL database.
+      * http://127.0.0.1:5050/
+    * Run `make server` to start the live server.
       * http://127.0.0.1:8000/
       * http://127.0.0.1:8000/docs - automatic interactive API documentation (provided by Swagger UI)
       * http://127.0.0.1:8000/redoc - alternative automatic documentation (provided by ReDoc)
