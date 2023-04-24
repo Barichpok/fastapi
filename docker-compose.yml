@@ -1,17 +1,32 @@
 version: '3.5'
 
 services:
+  app:
+    container_name: fastapi_app
+    build: .
+    env_file:
+      - ./.env
+    volumes:
+      - .:/app
+    depends_on:
+      - postgres
+    ports:
+      - '8000:8000'
+    networks:
+      - my_network
+    restart: unless-stopped
+
   postgres:
     container_name: postgres_container
     image: postgres:latest
     env_file:
       - ./.env
     volumes:
-       - postgres:/data/postgres
+      - postgres:/data/postgres
     ports:
       - '5432:5432'
     networks:
-      - postgres
+      - my_network
     restart: unless-stopped
 
   pgadmin:
@@ -20,17 +35,17 @@ services:
     env_file:
       - ./.env
     volumes:
-       - pgadmin:/var/lib/pgadmin
+      - pgadmin:/var/lib/pgadmin
     ports:
       - '5050:80'
     networks:
-      - postgres
+      - my_network
     restart: unless-stopped
 
 networks:
-  postgres:
+  my_network:
     driver: bridge
 
 volumes:
-    postgres:
-    pgadmin:
+  postgres:
+  pgadmin:
